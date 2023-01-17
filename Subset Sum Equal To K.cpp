@@ -75,6 +75,7 @@ bool subsetSumToK(int n, int k, vector<int> &arr)
     for (int i{1}; i < n; i++)
     {
         vector<int> curr(k + 1, 0);
+		curr[0] = 1;
         for (int j{1}; j < k + 1; j++)
         {
             bool take = false;
