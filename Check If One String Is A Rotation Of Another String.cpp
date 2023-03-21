@@ -6,6 +6,6 @@ int isCyclicRotation(string &p, string &q)
     if (p.length() != q.length())
         return 0;
 
-    string temp = p + q;
+    string temp = p + p;
     return temp.find(q) != string::npos;
 }
