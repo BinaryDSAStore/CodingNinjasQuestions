@@ -3,39 +3,24 @@ using namespace std;
 
 vector<int> nextGreaterElement(int n, vector<int> A, int m, vector<int> B)
 {
-    map<int, int> mp;
-
-    for (int i = 0; i < n; ++i)
-        mp[A[i]] = i;
-
-    stack<int> st;
-    st.push(-1);
-
-    for (int i = m - 1; i >= 0; i--)
+    vector<int> ans;
+    unordered_map<int, int> mp;
+    stack<int> s;
+    for (int i = 0; i < m; i++)
     {
-
-        if (mp.find(B[i]) == mp.end())
+        while (!s.empty() && s.top() < B[i])
         {
-            st.push(B[i]);
-            continue;
+            mp[s.top()] = B[i];
+            s.pop();
         }
-
-        if (st.top() >= B[i])
-        {
-            int index = mp[B[i]];
-            A[index] = st.top();
-            st.push(B[i]);
-        }
-        else
-        {
-            while (st.top() != -1 and st.top() <= B[i])
-                st.pop();
-
-            int index = mp[B[i]];
-            A[index] = st.top();
-            st.push(B[i]);
-        }
+        s.push(B[i]);
     }
-
-    return A;
+    for (int i = 0; i < n; i++)
+    {
+        if (mp.find(A[i]) != mp.end())
+            ans.push_back(mp[A[i]]);
+        else
+            ans.push_back(-1);
+    }
+    return ans;
 }
